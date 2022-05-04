@@ -86,7 +86,7 @@ public class SignUp extends AppCompatActivity {
         String url = "http://192.168.3.218/CSC498G-Project-1/backend/api.php";
         DownloadTask task = new DownloadTask();
         task.execute(url);
-        rate = task.rateInside;
+
 
 
         if(pass.getText().toString().equals("") && name.getText().toString().equals("")){
@@ -146,7 +146,7 @@ public class SignUp extends AppCompatActivity {
         });
     }
     public void next(View v){
-        String post_to_database = "http://192.168.3.218/CSC498G-Project-1/backend/api.php" + "?email=" + name.getText().toString() + "&" + "user_password=" + pass.getText().toString();
+        String post_to_database = "http://192.168.3.218/FinalProject/v1/signup.php" + "?email=" + name.getText().toString() + "&" + "user_password=" + pass.getText().toString();
         Intent intent=new Intent (getApplicationContext(), Menu.class);
         startActivity(intent);
     }

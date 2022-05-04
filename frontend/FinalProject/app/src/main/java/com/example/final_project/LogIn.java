@@ -3,25 +3,86 @@ package com.example.final_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class LogIn extends AppCompatActivity {
 
     EditText name;
     EditText pass;
     Button sign_up;
-    @Override
+    String strResult;
+    TextView rateDisplay;
+    URL url;
+    public class DownloadTask extends AsyncTask<String, Void, String> {
+        public String rateInside = "" ;
+
+
+        protected String doInBackground(String... urls){
+            String getting = "" ;
+
+            HttpURLConnection http;
+
+            try{
+                url = new URL(urls[0]);
+                http = (HttpURLConnection) url.openConnection();
+
+                InputStream in = http.getInputStream();
+                InputStreamReader reader = new InputStreamReader(in);
+                int data = reader.read();
+
+                while( data != -1){
+                    char current = (char) data;
+                    getting += current;
+                    data = reader.read();
+
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+                return null;
+            }
+            return getting;
+        }
+
+
+        protected void onPostExecute(String s){
+            super.onPostExecute(s);
+
+            try{
+                JSONObject json = new JSONObject(s);
+
+
+            }catch(Exception e){
+                e.printStackTrace();
+
+            }
+
+        }
+
+
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
         name= (EditText) findViewById(R.id.name);
         pass= (EditText) findViewById(R.id.pass);
         sign_up= (Button) findViewById(R.id.button);
+        String Url = "http://192.168.3.218/CSC498G-Project-1/backend/api.php";
+        LogIn.DownloadTask task = new LogIn.DownloadTask();
+        task.execute(Url);
         if(pass.getText().toString().equals("") && name.getText().toString().equals("")){
             sign_up.setEnabled(false);
         }
@@ -79,6 +140,7 @@ public class LogIn extends AppCompatActivity {
         });
     }
     public void menu(View v){
+        String link = "http://192.168.3.218/FinalProject/v1/login.php" + "?email=" + name.getText().toString() + "&" + "user_password=" + pass.getText().toString();
         Intent intent=new Intent (getApplicationContext(), Menu.class);
         startActivity(intent);
     }
