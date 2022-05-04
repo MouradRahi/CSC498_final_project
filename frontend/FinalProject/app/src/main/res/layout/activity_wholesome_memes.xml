@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="1dp"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".CallPage">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="358dp"
+            android:layout_height="81dp"
+            android:text="Memes"
+            android:textAlignment="center"
+            android:textSize="40sp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="40dp" />
+
+        <ImageView
+            android:id="@+id/button19"
+            android:layout_width="93dp"
+            android:layout_height="91dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="141dp" />
+
+        <ImageView
+            android:id="@+id/button20"
+            android:layout_width="102dp"
+            android:layout_height="80dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="216dp"
+            tools:layout_editor_absoluteY="141dp" />
+
+        <ImageView
+            android:id="@+id/button22"
+            android:layout_width="81dp"
+            android:layout_height="68dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="38dp"
+            tools:layout_editor_absoluteY="311dp" />
+
+        <ImageView
+            android:id="@+id/button23"
+            android:layout_width="128dp"
+            android:layout_height="75dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="256dp"
+            tools:layout_editor_absoluteY="311dp" />
+
+        <ImageView
+            android:id="@+id/button24"
+            android:layout_width="119dp"
+            android:layout_height="71dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="265dp"
+            tools:layout_editor_absoluteY="484dp" />
+
+        <ImageView
+            android:id="@+id/button25"
+            android:layout_width="84dp"
+            android:layout_height="94dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="454dp" />
+
+        <ImageView
+            android:id="@+id/button11"
+            android:layout_width="84dp"
+            android:layout_height="94dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="278dp"
+            tools:layout_editor_absoluteY="753dp" />
+
+        <ImageView
+            android:id="@+id/button8"
+            android:layout_width="84dp"
+            android:layout_height="94dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="753dp" />
+
+        <ImageView
+            android:id="@+id/button9"
+            android:layout_width="84dp"
+            android:layout_height="94dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="278dp"
+            tools:layout_editor_absoluteY="608dp" />
+
+        <ImageView
+            android:id="@+id/button10"
+            android:layout_width="84dp"
+            android:layout_height="94dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="627dp" />
+
+        <Button
+            android:id="@+id/button21"
+            android:layout_width="180dp"
+            android:layout_height="83dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="922dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
