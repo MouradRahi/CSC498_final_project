@@ -44,5 +44,10 @@ class DbOperation{
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function userProfileUpdate($email,$name,$willing,$number){
+        $stmt= $this->con->prepare("UPDATE `user` SET `name` = $name, `willing_call` = $willing, `number` = $number WHERE `user`.`id` = $email");
+        return ($stmt->execute());
+    }
+
 }
 ?>
