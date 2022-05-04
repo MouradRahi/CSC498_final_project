@@ -27,13 +27,14 @@ public class SignUp extends AppCompatActivity {
     String rate;
     String strResult;
     TextView rateDisplay;
+    URL url;
     public class DownloadTask extends AsyncTask<String, Void, String> {
         public String rateInside = "" ;
 
 
         protected String doInBackground(String... urls){
             String getting = "" ;
-            URL url;
+
             HttpURLConnection http;
 
             try{
@@ -145,6 +146,7 @@ public class SignUp extends AppCompatActivity {
         });
     }
     public void next(View v){
+        String post_to_database = "http://192.168.3.218/CSC498G-Project-1/backend/api.php" + "?email=" + name.getText().toString() + "&" + "user_password=" + pass.getText().toString();
         Intent intent=new Intent (getApplicationContext(), Menu.class);
         startActivity(intent);
     }
