@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.final_project">
 
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
         <activity
+            android:name=".MoC"
+            android:exported="false" />
+        <activity
             android:name=".ContactExpert"
             android:exported="false" />
         <activity
@@ -19,9 +20,6 @@
             android:exported="false" />
         <activity
             android:name=".MessagePage"
-            android:exported="false" />
-        <activity
-            android:name=".MoC"
             android:exported="false" />
         <activity
             android:name=".ContactSomeone"
@@ -51,5 +49,8 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.CALL_PHONE"
+        />
 
 </manifest>
