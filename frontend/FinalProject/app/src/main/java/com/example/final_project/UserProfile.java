@@ -2,9 +2,7 @@ package com.example.final_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 public class UserProfile extends AppCompatActivity {
 
@@ -13,9 +11,4 @@ public class UserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
     }
-    public void goBackToMenu(View v){
-        startActivity(new Intent (getApplicationContext(), Menu.class));
-    }
-
-
 }
