@@ -10,23 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
         <activity
-            android:name=".MessagePage"
-            android:exported="false" />
-        <activity
-            android:name=".CallPage"
-            android:exported="false"
-            android:label="@string/title_activity_call_page"
-            android:theme="@style/Theme.FinalProject.NoActionBar" />
-        <activity
-            android:name=".ContactSomeone"
-            android:exported="false" />
-        <activity
-            android:name=".WholesomeMemes"
-            android:exported="false" />
-        <activity
-            android:name=".UserProfile"
-            android:exported="false" />
-        <activity
             android:name=".Menu"
             android:exported="false" />
         <activity
