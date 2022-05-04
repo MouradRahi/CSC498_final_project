@@ -89,10 +89,9 @@
         app:layout_constraintVertical_bias="0.677" />
 
     <Button
-        android:id="@+id/mind"
+        android:id="@+id/button8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="Mind"
         android:text="i do mind"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,10 +101,9 @@
         app:layout_constraintVertical_bias="0.78" />
 
     <Button
-        android:id="@+id/no_mind"
+        android:id="@+id/button9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="noMind"
         android:text="i don't mind"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -21,10 +21,9 @@
         app:layout_constraintVertical_bias="0.093" />
 
     <Button
-        android:id="@+id/willing_to_call"
+        android:id="@+id/button10"
         android:layout_width="143dp"
         android:layout_height="73dp"
-        android:onClick="call"
         android:text="call"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,10 +33,9 @@
         app:layout_constraintVertical_bias="0.378" />
 
     <Button
-        android:id="@+id/willing_to_msg"
+        android:id="@+id/button11"
         android:layout_width="143dp"
         android:layout_height="73dp"
-        android:onClick="msg"
         android:text="message"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,10 +45,9 @@
         app:layout_constraintVertical_bias="0.53" />
 
     <Button
-        android:id="@+id/both"
+        android:id="@+id/button12"
         android:layout_width="143dp"
         android:layout_height="73dp"
-        android:onClick="both"
         android:text="both"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,15 +55,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.688" />
-
-    <Button
-        android:id="@+id/done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="604dp"
-        android:onClick="done"
-        android:text="done"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
