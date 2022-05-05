@@ -21,11 +21,11 @@
         app:layout_constraintVertical_bias="0.089" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/email"
         android:layout_width="279dp"
         android:layout_height="63dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint="Email"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

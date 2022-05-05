@@ -12,7 +12,12 @@ public class Menu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        /*
+        if (user not willing to call)->setEnable of contact someone to false
+        else set it to true
+         */
     }
+
     public void contactSomeone(View v){
         Intent intent=new Intent (getApplicationContext(), ContactSomeone.class);
         startActivity(intent);

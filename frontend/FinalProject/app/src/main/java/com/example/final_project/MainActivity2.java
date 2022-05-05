@@ -60,9 +60,10 @@ public class MainActivity2 extends AppCompatActivity {
             super.onPostExecute(s);
 
             try{
-                JSONObject json = new JSONObject(s);
-                quote = json.getString("value");
+                JSONObject json1 = new JSONObject(s);
+                quote = json1.getString("content");
                 quote1.setText(quote);
+
 
 
             }catch(Exception e){
@@ -79,15 +80,30 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         String amount =  ""; //get the amount from the view
-        String url = "https://api.quotable.io/random";
-
-        DownloadTask task = new DownloadTask();
-        task.execute(url);
+        String url1 = "https://api.quotable.io/random";
+        String url2 = "https://api.quotable.io/random";
+        String url3 = "https://api.quotable.io/random";
+        String url4 = "https://api.quotable.io/random";
+        DownloadTask task1 = new DownloadTask();
+        task1.execute(url1);
+        quote2.setText(quote1.getText().toString());
+        DownloadTask task2 = new DownloadTask();
+        task2.execute(url2);
+        quote3.setText(quote2.getText().toString());
+        quote2.setText(quote1.getText().toString());
+        DownloadTask task3 = new DownloadTask();
+        task3.execute(url3);
+        quote4.setText(quote3.getText().toString());
+        quote3.setText(quote2.getText().toString());
+        quote2.setText(quote1.getText().toString());
+        DownloadTask task4 = new DownloadTask();
+        task4.execute(url4);
         quote1= (TextView) findViewById(R.id.textView14);
         quote2= (TextView) findViewById(R.id.textView17);
         quote3= (TextView) findViewById(R.id.textView16);
         quote4= (TextView) findViewById(R.id.textView15);
         //quote1.setText();
+
 
     }
 

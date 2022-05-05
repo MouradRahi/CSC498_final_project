@@ -2,100 +2,77 @@ package com.example.final_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
 
-    EditText name;
+    EditText email;
     EditText pass;
     Button sign_up;
-    String rate;
-    String strResult;
-    TextView rateDisplay;
+    String quote;
+    String success;
+    TextView q1;
     URL url;
-    public class DownloadTask extends AsyncTask<String, Void, String> {
-        public String rateInside = "" ;
 
 
-        protected String doInBackground(String... urls){
-            String getting = "" ;
-
-            HttpURLConnection http;
-
-            try{
-                url = new URL(urls[0]);
-                http = (HttpURLConnection) url.openConnection();
-
-                InputStream in = http.getInputStream();
-                InputStreamReader reader = new InputStreamReader(in);
-                int data = reader.read();
-
-                while( data != -1){
-                    char current = (char) data;
-                    getting += current;
-                    data = reader.read();
-
-                }
-            }catch(Exception e){
-                e.printStackTrace();
-                return null;
-            }
-            return getting;
-        }
-
-
-        protected void onPostExecute(String s){
-            super.onPostExecute(s);
-
-            try{
-                JSONObject json = new JSONObject(s);
-                rate = json.getString("rate");
-                rateDisplay.setText("Current rate: 1 USD = " + rate + " LBP");
-                rateInside = rate;
-
-            }catch(Exception e){
-                e.printStackTrace();
-
-            }
-
-        }
-
-
-    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        name= (EditText) findViewById(R.id.name);
-        pass= (EditText) findViewById(R.id.pass);
-        sign_up= (Button) findViewById(R.id.button);
-        String url = "http://192.168.3.218/CSC498G-Project-1/backend/api.php";
-        DownloadTask task = new DownloadTask();
-        task.execute(url);
+        email = (EditText) findViewById(R.id.email);
+        pass = (EditText) findViewById(R.id.pass);
+        sign_up = (Button) findViewById(R.id.button);
 
-
-
-        if(pass.getText().toString().equals("") && name.getText().toString().equals("")){
+        if (pass.getText().toString().equals("") && email.getText().toString().equals("")) {
             sign_up.setEnabled(false);
         }
-        name.addTextChangedListener(new TextWatcher() {
+        email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 sign_up.setEnabled(false);
@@ -103,20 +80,18 @@ public class SignUp extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (pass.getText().toString().equals("")){
+                if (pass.getText().toString().equals("")) {
                     sign_up.setEnabled(false);
-                }
-                else{
+                } else {
                     sign_up.setEnabled(true);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (pass.getText().toString().equals("")){
+                if (pass.getText().toString().equals("")) {
                     sign_up.setEnabled(false);
-                }
-                else{
+                } else {
                     sign_up.setEnabled(true);
                 }
             }
@@ -129,54 +104,60 @@ public class SignUp extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (name.getText().toString().equals("")){
+                if (email.getText().toString().equals("")) {
                     sign_up.setEnabled(false);
-                }
-                else{
+                } else {
                     sign_up.setEnabled(true);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (name.getText().toString().equals("")){
+                if (email.getText().toString().equals("")) {
                     sign_up.setEnabled(false);
-                }
-                else{
+                } else {
                     sign_up.setEnabled(true);
                 }
             }
         });
     }
 
+    public void next(View v) {
 
-    private void sendPostRequest(String givenAmount, String givenRate , String givenCurrency) {
+        if(sendPostRequest(email.getText().toString(), pass.getText().toString())){
+            startActivity(new Intent(this , UserProfile.class));
+        }
+        else{
+            Toast.makeText(this , "Retry" , Toast.LENGTH_LONG);
+        }
 
-        class SendPostReqAsyncTask extends AsyncTask<String, Void, String>{
+
+    }
+
+    private boolean sendPostRequest(String givenEmail, String givenPassword) {
+
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
 
             @Override
             protected String doInBackground(String... params) {
 
-                String paramAmount = params[0];
-                String paramRate = params[1];
-                String paramCurrency = params[2];
+                String paramEmail = params[0];
+                String paramPassword = params[1];
 
 
                 HttpClient httpClient = new DefaultHttpClient();
 
 
-                HttpPost httpPost = new HttpPost("http://192.168.11.108/CSC498G-Project-1/backend/post.php");
+                HttpPost httpPost = new HttpPost("http://192.168.3.218/FinalProject/backend/register.php");
 
 
-                BasicNameValuePair amountBasicNameValuePair = new BasicNameValuePair("amount", paramAmount);
-                BasicNameValuePair rateBasicNameValuePAir = new BasicNameValuePair("rate", paramRate);
-                BasicNameValuePair currencyBasicNameValuePAir = new BasicNameValuePair("currency", paramCurrency);
+                BasicNameValuePair emailBasicNameValuePair = new BasicNameValuePair("email", paramEmail);
+                BasicNameValuePair passwordBasicNameValuePAir = new BasicNameValuePair("password", paramPassword);
 
 
                 List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
-                nameValuePairList.add(amountBasicNameValuePair);
-                nameValuePairList.add(rateBasicNameValuePAir);
-                nameValuePairList.add(currencyBasicNameValuePAir);
+                nameValuePairList.add(emailBasicNameValuePair);
+                nameValuePairList.add(passwordBasicNameValuePAir);
 
 
                 try {
@@ -200,7 +181,7 @@ public class SignUp extends AppCompatActivity {
 
                         String bufferedStrChunk = null;
 
-                        while((bufferedStrChunk = bufferedReader.readLine()) != null){
+                        while ((bufferedStrChunk = bufferedReader.readLine()) != null) {
                             stringBuilder.append(bufferedStrChunk);
                         }
 
@@ -223,32 +204,25 @@ public class SignUp extends AppCompatActivity {
             }
 
             @Override
-            protected void onPostExecute(String s){
+            protected void onPostExecute(String s) {
                 super.onPostExecute(s);
 
-                try{
-                    Log.i("s" , s);
+                try {
                     JSONObject json = new JSONObject(s);
-                    strResult = json.getString("result");
-                    result.setText(strResult);
-                    result.animate().alpha(1.0F);
-                    Log.i("result" , strResult);
+                    success = json.getString("success");
+                    Log.i("success", success);
 
 
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
 
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-        sendPostReqAsyncTask.execute(givenAmount, givenRate , givenCurrency);
-    }
-
-    public void next(View v){
-        String post_to_database = "http://192.168.3.218/FinalProject/v1/signup.php" + "?email=" + name.getText().toString() + "&" + "user_password=" + pass.getText().toString();
-        Intent intent=new Intent (getApplicationContext(), Menu.class);
-        startActivity(intent);
+        sendPostReqAsyncTask.execute(givenEmail, givenPassword);
+        if (success.equals("0")) return true;
+        else return false;
     }
 
 }

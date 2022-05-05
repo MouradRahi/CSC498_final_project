@@ -1,25 +1,15 @@
 <?php
 
+$db_host = "localhost";
+$db_user = "root"; 
+$db_pass = null;   
+$db_name = "embracedb";
 
-class connect{
-  private $con;
+$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
-    function __construct (){
-        
-    }
-    function Connect(){
-      require_once dirname(__FILE__).'/constants.php';
-      $this->con=new msqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
-      if (mysqli_connect_errno()) {
-        echo "failed".mysqli_connect_err();
-      }
-      return $this->con;
-    }
+if(mysqli_connect_errno()){
+    die("Conenction Failed!");
 }
-/*$conn = mysqli_connect('localhost', 'root', '', 'embracedb');
 
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-echo "Connected successfully";*/
-?>
+
+?> 

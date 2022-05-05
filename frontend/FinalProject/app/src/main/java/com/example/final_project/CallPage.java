@@ -1,11 +1,19 @@
 package com.example.final_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -13,12 +21,15 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class CallPage extends AppCompatActivity {
 
+    private Button call;
+    private static final int REQUEST_CALL=1;
+    private String number;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call_page);
-
-        String[] arraySpinner = new String[] {
+        call=(Button) findViewById(R.id.button11);
+        String[] arraySpinner = new String[] {//in here i put the people who said they are willing to call from my database
                 "1", "2", "3", "4", "5", "6", "7"
         };
         Spinner s = (Spinner) findViewById(R.id.spinner3);
@@ -30,14 +41,46 @@ public class CallPage extends AppCompatActivity {
         {
 
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-                // TODO Auto-generated method stub
-                Toast.makeText(getBaseContext(), arraySpinner[position], Toast.LENGTH_SHORT).show();
+                call.setEnabled(true);
+                //we make the variable number = to the phone number o the selected user
             }
 
 
             public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
+                call.setEnabled(false);
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CALL){
+            if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                makePhoneCall();
+            }
+            else{
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void callUser(View v){
+        makePhoneCall();
+
+    }
+    public void makePhoneCall(){
+        if (ContextCompat.checkSelfPermission(CallPage.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(CallPage.this, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+
+        }
+        else{
+            String dial = "tel: "+ number;
+            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+        }
+
+    }
+    public void backToMenu(View v){
+        startActivity(new Intent(getApplicationContext(), Menu.class));
     }
 }
