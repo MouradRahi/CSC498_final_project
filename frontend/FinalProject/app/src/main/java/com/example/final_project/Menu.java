@@ -14,11 +14,11 @@ public class Menu extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
     }
     public void contactSomeone(View v){
-        Intent intent=new Intent (getApplicationContext(), CallPage.class);
+        Intent intent=new Intent (getApplicationContext(), ContactSomeone.class);
         startActivity(intent);
     }
-    public void contactExpert(View v){
-        Intent intent=new Intent (getApplicationContext(), ContactExpert.class);
+    public void motivational(View v){
+        Intent intent=new Intent (getApplicationContext(), MainActivity2.class);
         startActivity(intent);
     }
     public void meme(View v){
