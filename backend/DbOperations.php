@@ -49,5 +49,12 @@ class DbOperation{
         return ($stmt->execute());
     }
 
+    public function checkUserProfile($email){
+        $stmt=$this->con->prepare("SELECT 'name' FROM user WHERE email = ?");
+        $stmt->bind_param("s",$email);
+        return $stmt->execute();
+        
+    }
+
 }
 ?>
